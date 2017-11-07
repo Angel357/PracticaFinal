@@ -23,6 +23,8 @@ public class Principal extends javax.swing.JFrame {
     LinkedList<String> cola2=new LinkedList<String>();
     int cont=0;
     int cont2=0;
+    int cont3=0;
+    String[] h;
     
     
     public Principal() {
@@ -108,6 +110,8 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().add(txt2pila);
         txt2pila.setBounds(96, 422, 60, 20);
 
+        btnReemplazar.setBackground(new java.awt.Color(153, 153, 153));
+        btnReemplazar.setForeground(new java.awt.Color(255, 255, 255));
         btnReemplazar.setText("Reemplazar");
         btnReemplazar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,10 +119,12 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnReemplazar);
-        btnReemplazar.setBounds(182, 421, 90, 23);
+        btnReemplazar.setBounds(182, 421, 110, 23);
         getContentPane().add(txtdesencolar);
         txtdesencolar.setBounds(480, 420, 50, 20);
 
+        btnDesencolar.setBackground(new java.awt.Color(153, 153, 153));
+        btnDesencolar.setForeground(new java.awt.Color(255, 255, 255));
         btnDesencolar.setText("Desencolar");
         btnDesencolar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,7 +132,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnDesencolar);
-        btnDesencolar.setBounds(561, 421, 90, 23);
+        btnDesencolar.setBounds(561, 421, 110, 23);
 
         jLabel4.setFont(new java.awt.Font("Myriad Hebrew", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -232,6 +238,7 @@ public class Principal extends javax.swing.JFrame {
                         cola.offer(txtcola.getText(fin,incio-fin));
                         txtcola2.setText("");
                         txtdesencolar.setText("");
+                        cont2++;
                    }catch(Exception ex){}
                 }   
             }
@@ -246,6 +253,7 @@ public class Principal extends javax.swing.JFrame {
         if(txtdesencolar.getText().equals("")){
           JOptionPane.showMessageDialog(null, "no ha ingresado el digito que desea des encolar");
       }else{
+        h=new String[cont2];    
         cola();
     }
     }
@@ -255,6 +263,7 @@ public class Principal extends javax.swing.JFrame {
             if(t.equals(txtdesencolar.getText())){
                 cola.poll();
                 txtcola2.setText(txtcola2.getText()+txtdesencolar.getText()+" Salio de la cola\n");
+                cont3++;
             }else{
                 cola2.offer(cola.poll());
             }
@@ -272,8 +281,22 @@ public class Principal extends javax.swing.JFrame {
         }else{
         desencolarCola2();
         }
-        }catch(Exception e4){}
-        
+        }catch(Exception e4){
+            if (cont3==0){
+              txtcola2.setText("");
+              JOptionPane.showMessageDialog(null, "No existe ningun "+txtdesencolar.getText()+" dentro de la cola");
+              txtcola.setText("");
+              txtdesencolar.setText("");
+              //regenerarCola();
+          }
+          cont3=0;
+        }  
+    }
+    public void regenerarCola(){
+        for(int y=0;y<h.length;y++){
+            cola.offer(h[y-1]);
+        }
+        cont2=0;
     }
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
